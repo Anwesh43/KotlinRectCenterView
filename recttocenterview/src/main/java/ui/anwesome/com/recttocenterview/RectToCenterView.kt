@@ -3,6 +3,7 @@ package ui.anwesome.com.recttocenterview
 /**
  * Created by anweshmishra on 20/03/18.
  */
+import android.app.Activity
 import android.graphics.*
 import android.content.*
 import android.view.*
@@ -111,6 +112,13 @@ class RectToCenterView(ctx : Context) : View(ctx) {
             rectToCenter.startUpdating {
                 animator.start()
             }
+        }
+    }
+    companion object {
+        fun create(activity : Activity) : RectToCenterView {
+            val view = RectToCenterView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
