@@ -41,7 +41,7 @@ class RectToCenterView(ctx : Context) : View(ctx) {
             }
         }
     }
-    data class Animator(var view : View, var animated : Boolean) {
+    data class Animator(var view : View, var animated : Boolean = false) {
         fun animate(updatecb : () -> Unit) {
             if (animated) {
                 try {
@@ -92,6 +92,24 @@ class RectToCenterView(ctx : Context) : View(ctx) {
         }
         fun startUpdating(startcb : () -> Unit) {
             state.startUpdating(startcb)
+        }
+    }
+    data class Renderer(var view : RectToCenterView) {
+        val rectToCenter = RectToCenter(0)
+        val animator = Animator(view)
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            rectToCenter.draw(canvas, paint)
+            animator.animate {
+                rectToCenter.update {
+                    animator.stop()
+                }
+            }
+        }
+        fun handleTap() {
+            rectToCenter.startUpdating {
+                animator.start()
+            }
         }
     }
 }
