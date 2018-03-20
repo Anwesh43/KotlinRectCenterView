@@ -74,6 +74,7 @@ class RectToCenterView(ctx : Context) : View(ctx) {
             canvas.save()
             canvas.translate(w/2, h/2)
             for(i in 0..1) {
+                paint.color = Color.argb(100, 255 * i, 255 * (1 - i), 0)
                 canvas.save()
                 canvas.translate(size + (w - 2 * size) * i, size + (h - 2 * size) * i)
                 canvas.scale(state.scales[0], state.scales[0])
