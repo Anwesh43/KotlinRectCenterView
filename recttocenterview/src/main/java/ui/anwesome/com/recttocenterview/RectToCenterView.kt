@@ -76,16 +76,15 @@ class RectToCenterView(ctx : Context) : View(ctx) {
             canvas.save()
             canvas.translate(w/2, h/2)
             for(i in 0..1) {
+                val dx = ((w - 2 * size)/2) * (1 - 2 * i)
+                val dy = ((h - 2 * size)/2) * (1 - 2 * i)
+                val x = -dx * (1 - state.scales[1])
+                val y = -dy * (1 - state.scales[1])
                 paint.color = Color.argb(100, 255 * i, 255 * (1 - i), 0)
                 canvas.save()
-                canvas.translate(size + (w - 2 * size) * i, size + (h - 2 * size) * i)
-                canvas.scale(state.scales[0], state.scales[0])
-                val x = ((w - 2 * size)/2) * (1 - 2 * i) * state.scales[1]
-                val y = ((h - 2 * size)/2) * (1 - 2 * i) * state.scales[1]
-                canvas.save()
                 canvas.translate(x, y)
+                canvas.scale(state.scales[0], state.scales[0])
                 canvas.drawRoundRect(RectF(-size/2, -size/2, size/2, size/2), size/4, size/4, paint)
-                canvas.restore()
                 canvas.restore()
             }
             canvas.restore()
